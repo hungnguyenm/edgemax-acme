@@ -3,7 +3,7 @@
 ACMEHOME=/config/scripts/acme
 
 usage() {
-    echo "Usage: $0 -d <mydomain.com> [-d <additionaldomain.com>] -n <dns service> " \
+    echo "Usage: $0 -d <mydomain.com> [-d <additionaldomain.com>] -n <dns service>" \
          "-t <tag> [-t <additional tag>] -k <key> [-k <additional key>]" 1>&2; exit 1;
 }
 
@@ -25,12 +25,12 @@ log() {
 }
 
 # first parse our options
-while getopts "hd:n:t:k:" opt; do
+while getopts "hd:n:ht:hk:" opt; do
     case $opt in
         d) DOMAINS+=("$OPTARG");;
         n) DNS=$OPTARG;;
-        d) TAGS+=("$OPTARG");;
-        d) KEYS+=("$OPTARG");;
+        t) TAGS+=("$OPTARG");;
+        k) KEYS+=("$OPTARG");;
         *)
           usage
           ;;
@@ -39,21 +39,20 @@ done
 shift $((OPTIND -1))
 
 # check for required parameters
-if [ ${#DOMAIN[@]} -eq 0 ] || [ -z ${DNS+x} ] \
+if [ ${#DOMAINS[@]} -eq 0 ] || [ -z ${DNS+x} ] \
         || [ ${#TAGS[@]} -eq 0 ] || [ ${#KEYS[@]} -eq 0 ] || [ ${#TAGS[@]} -ne ${#KEYS[@]} ]; then
     usage
 fi
 
 # prepare flags for acme.sh
-for val in "${DOMAIN[@]}"; do
+for val in "${DOMAINS[@]}"; do
      DOMAINARG+="-d $val "
 done
 DNSARG="--dns $DNS"
 
 # prepare environment
-mkdir -p $ACMEHOME
 for i in "${!TAGS[@]}"; do 
-    export $TAGS[$i]="$KEYS[$i]"
+    export ${TAGS[$i]}="${KEYS[$i]}"
 done
 
 log "Stopping gui service."
@@ -65,7 +64,7 @@ fi
 log "Executing acme.sh."
 $ACMEHOME/acme.sh --issue $DNSARG $DOMAINARG --home $ACMEHOME \
     --keypath /tmp/server.key --fullchainpath /tmp/full.cer \
-    --reloadcmd /config/ssl/reload.acme.sh
+    --reloadcmd /config/scripts/reload.acme.sh
 
 log "Starting gui service."
 /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
