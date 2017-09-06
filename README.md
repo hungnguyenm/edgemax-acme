@@ -16,7 +16,7 @@ It does require DNS API access from the DNS provider. The list of supported DNS 
 
 ## Install scripts
 
-You'll install `acme.sh`, `renew.acme.sh`, `reload.acme.sh`, and coresponding DNS API script. The scripts assume that `acme.sh` is put in `/config/scripts/acme`. If you decide to use different folder, you'll need to modify the `renew.acme.sh` to reflect the change.
+You'll install `acme.sh`, `renew.acme.sh`, `reload.acme.sh`, and the corresponding DNS API script. The scripts assume that `acme.sh` is put in `/config/scripts/acme`. If you decide to use different folder, you'll need to modify the `renew.acme.sh` to reflect the change.
 
 ```
 mkdir -p /config/scripts/acme/dnsapi
@@ -26,6 +26,8 @@ curl -o /config/scripts/reload.acme.sh https://raw.githubusercontent.com/hungngu
 curl -o /config/scripts/acme/dnsapi/[yourdnsapi].sh https://raw.githubusercontent.com/Neilpang/acme.sh/master/dnsapi/[yourdnsapi].sh
 chmod 755 /config/scripts/acme/acme.sh /config/scripts/renew.acme.sh /config/scripts/reload.acme.sh /config/scripts/acme/dnsapi/[yourdnsapi].sh
 ```
+
+Remember to replace `[yourdnsapi]` with your DNS provider script file name from above.
 
 ## Request certificate the first time
 
@@ -74,7 +76,7 @@ sudo /config/scripts/renew.acme.sh -d subdomain.example.com -n dns_gd -t "GD_Key
 
 ## Configure automatic renew
 
-If the management UI is accessible with the new valid certificte, you're ready to schedule task for automatic renewing certificate.
+If the management UI is accessible with the new valid certificate, you're ready to schedule task for automatic renewing certificate. The following commands create a cronjob to execute `renew.acme.sh` every 15 days, with the same arguments that we run earlier. At the time this guide is written, all Let's Encrypt certificates expire after 90 days.
 
 ```
 set system task-scheduler task renew.acme executable path /config/scripts/renew.acme.sh
