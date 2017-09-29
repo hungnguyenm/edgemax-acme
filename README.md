@@ -76,11 +76,11 @@ sudo /config/scripts/renew.acme.sh -d subdomain.example.com -n dns_gd -t "GD_Key
 
 ## Configure automatic renew
 
-If the management UI is accessible with the new valid certificate, you're ready to schedule task for automatic renewing certificate. The following commands create a cronjob to execute `renew.acme.sh` every 15 days, with the same arguments that we run earlier. At the time this guide is written, all Let's Encrypt certificates expire after 90 days.
+If the management UI is accessible with the new valid certificate, you're ready to schedule task for automatic renewing certificate. The following commands create a cronjob to execute `renew.acme.sh` every day, with the same arguments that we run earlier. Since `acme.sh` script only renews cert every 60 days, this task will just quit within the first 60 days. At the time this guide is written, all Let's Encrypt certificates expire after 90 days.
 
 ```
 set system task-scheduler task renew.acme executable path /config/scripts/renew.acme.sh
-set system task-scheduler task renew.acme interval 15d
+set system task-scheduler task renew.acme interval 1d
 set system task-scheduler task renew.acme executable arguments '-d subdomain.example.com -n dns_gd -t &quot;GD_Key&quot; -t &quot;GD_Secret&quot; -k &quot;sdfsdfsdfljlbjkljlkjsdfoiwje&quot; -k &quot;asdfsdafdsfdsfdsfdsfdsafd&quot;'
 ```
 
