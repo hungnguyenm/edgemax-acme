@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ACMEHOME=/config/scripts/acme
 
@@ -62,7 +62,7 @@ then
 fi
 
 log "Executing acme.sh."
-$ACMEHOME/acme.sh --force --issue $DNSARG $DOMAINARG --home $ACMEHOME \
+$ACMEHOME/acme.sh --issue $DNSARG $DOMAINARG --home $ACMEHOME \
     --keypath /tmp/server.key --fullchainpath /tmp/full.cer \
     --reloadcmd /config/scripts/reload.acme.sh
 

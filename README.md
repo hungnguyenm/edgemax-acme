@@ -81,7 +81,8 @@ If the management UI is accessible with the new valid certificate, you're ready 
 ```
 set system task-scheduler task renew.acme executable path /config/scripts/renew.acme.sh
 set system task-scheduler task renew.acme interval 1d
-set system task-scheduler task renew.acme executable arguments '-d subdomain.example.com -n dns_gd -t &quot;GD_Key&quot; -t &quot;GD_Secret&quot; -k &quot;sdfsdfsdfljlbjkljlkjsdfoiwje&quot; -k &quot;asdfsdafdsfdsfdsfdsfdsafd&quot;'
+set system task-scheduler task renew.acme executable arguments '-d subdomain.example.com -n dns_gd -t GD_Key -t GD_Secret -k sdfsdfsdfljlbjkljlkjsdfoiwje -k asdfsdafdsfdsfdsfdsfdsafd'
 ```
 
 Remember to update the arguments according to your previous run configuration, and replace any quote with `&quot;`
+
