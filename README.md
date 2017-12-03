@@ -84,5 +84,8 @@ set system task-scheduler task renew.acme interval 1d
 set system task-scheduler task renew.acme executable arguments '-d subdomain.example.com -n dns_gd -t GD_Key -t GD_Secret -k sdfsdfsdfljlbjkljlkjsdfoiwje -k asdfsdafdsfdsfdsfdsfdsafd'
 ```
 
-Remember to update the arguments according to your previous run configuration, and replace any quote with `&quot;`
+## Changelog
 
+```
+2017-12-02: Remove &quot; in task-scheduler arguments
+```
