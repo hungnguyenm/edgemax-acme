@@ -89,5 +89,6 @@ set system task-scheduler task renew.acme executable arguments '-d subdomain.exa
 ## Changelog
 
 ```
+2017-12-21: Add -i and -v options in renew.acme.sh
 2017-12-02: Remove &quot; in task-scheduler arguments
 ```
