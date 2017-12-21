@@ -37,6 +37,7 @@ Remember to replace `[yourdnsapi]` with your DNS provider script file name from 
 - `-t` (required) is the corresponding API tag. For example, `GD_Key` and `GD_Secret` for GoDaddy.
 - `-k` (required) is the corresponding value for API tag. The number of `-t` and `-k` must be the same, and tag/key are matched based on index.
 - `-i` (optional) flag to enable insecure mode.
+- `-v` (optional) flag to enable acme verbose.
 
 The command below works for GoDaddy DNS:
 ```
