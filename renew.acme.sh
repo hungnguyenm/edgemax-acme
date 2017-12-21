@@ -4,6 +4,7 @@ ACMEHOME=/config/scripts/acme
 
 usage() {
     echo "Usage: $0 -d <mydomain.com> [-d <additionaldomain.com>] -n <dns service>" \
+         "[-i set insecure flag]" \
          "-t <tag> [-t <additional tag>] -k <key> [-k <additional key>]" 1>&2; exit 1;
 }
 
@@ -24,14 +25,17 @@ log() {
     fi
 }
 
+INSECURE_FLAG=""
+
 # first parse our options
-while getopts "hd:n:ht:hk:" opt; do
+while getopts ":hid:n:t:k:" opt; do
     case $opt in
         d) DOMAINS+=("$OPTARG");;
+        i) INSECURE_FLAG="--insecure";;
         n) DNS=$OPTARG;;
         t) TAGS+=("$OPTARG");;
         k) KEYS+=("$OPTARG");;
-        *)
+        h | *)
           usage
           ;;
     esac
@@ -64,7 +68,8 @@ fi
 log "Executing acme.sh."
 $ACMEHOME/acme.sh --issue $DNSARG $DOMAINARG --home $ACMEHOME \
     --keypath /tmp/server.key --fullchainpath /tmp/full.cer \
-    --reloadcmd /config/scripts/reload.acme.sh
+    --reloadcmd /config/scripts/reload.acme.sh \
+    $INSECURE_FLAG
 
 log "Starting gui service."
 /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf

@@ -32,10 +32,11 @@ Remember to replace `[yourdnsapi]` with your DNS provider script file name from 
 ## Request certificate the first time
 
 `renew.acme.sh` requires the following options:
-- `-d` is the domain to issue certificate. You can add multiple domains by repeating this option.
-- `-n` is the DNS provider id. It is the same with your DNS API script from [acme.sh dnsapi](https://github.com/Neilpang/acme.sh/tree/master/dnsapi).
-- `-t` is the corresponding API tag. For example, `GD_Key` and `GD_Secret` for GoDaddy.
-- `-k` is the corresponding value for API tag. The number of `-t` and `-k` must be the same, and tag/key are matched based on index.
+- `-d` (required) is the domain to issue certificate. You can add multiple domains by repeating this option.
+- `-n` (required) is the DNS provider id. It is the same with your DNS API script from [acme.sh dnsapi](https://github.com/Neilpang/acme.sh/tree/master/dnsapi).
+- `-t` (required) is the corresponding API tag. For example, `GD_Key` and `GD_Secret` for GoDaddy.
+- `-k` (required) is the corresponding value for API tag. The number of `-t` and `-k` must be the same, and tag/key are matched based on index.
+- `-i` (optional) flag to enable insecure mode.
 
 The command below works for GoDaddy DNS:
 ```
