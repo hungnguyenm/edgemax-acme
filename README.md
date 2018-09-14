@@ -94,8 +94,8 @@ set system task-scheduler task renew.acme executable arguments '-d subdomain.exa
 ## Changelog
 
 ```
-2018-09-14: Add an option for providing arbitrary arguments to `acme.sh`
-2018-04-22: Change RSA certificate to ECDSA P-384; Set default log to `/var/log/acme.log`
-2017-12-21: Add -i and -v options in `renew.acme.sh`
+2018-09-14: Add an option for providing arbitrary arguments to acme.sh
+2018-04-22: Change RSA certificate to ECDSA P-384; Set default log to /var/log/acme.log
+2017-12-21: Add -i and -v options in renew.acme.sh
 2017-12-02: Remove &quot; in task-scheduler arguments
 ```
