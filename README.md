@@ -44,6 +44,11 @@ The command below works for GoDaddy DNS:
 sudo /config/scripts/renew.acme.sh -d subdomain.example.com -n dns_gd -t "GD_Key" -t "GD_Secret" -k "sdfsdfsdfljlbjkljlkjsdfoiwje" -k "asdfsdafdsfdsfdsfdsfdsafd"
 ```
 
+If you need extra arguments to acme.sh (perhaps for a [challenge alias](https://github.com/Neilpang/acme.sh/wiki/DNS-alias-mode)) specify them at the end after a ```--```:
+```
+sudo /config/scripts/renew.acme.sh -d subdomain.example.com -n dns_gd -t "GD_Key" -t "GD_Secret" -k "sdfsdfsdfljlbjkljlkjsdfoiwje" -k "asdfsdafdsfdsfdsfdsfdsafd" -- --challenge-alias challenge-domain.example.com
+```
+
 ## Configure router
 
 1. Set domain pointing to router internal IP address

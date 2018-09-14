@@ -72,7 +72,7 @@ $ACMEHOME/acme.sh --issue $DNSARG $DOMAINARG --home $ACMEHOME \
     --keylength ec-384 --keypath /tmp/server.key --fullchainpath /tmp/full.cer \
     --log /var/log/acme.log \
     --reloadcmd /config/scripts/reload.acme.sh \
-    $INSECURE_FLAG $VERBOSE_FLAG
+    $INSECURE_FLAG $VERBOSE_FLAG $@
 
 log "Starting gui service."
 /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
