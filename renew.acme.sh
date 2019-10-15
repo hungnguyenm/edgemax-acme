@@ -72,9 +72,9 @@ then
 fi
 
 log "Executing acme.sh."
-$ACMEHOME/acme.sh --issue $DNSARG $DOMAINARG --home $ACMEHOME \
+sudo -u#1000 $ACMEHOME/acme.sh --issue $DNSARG $DOMAINARG --home $ACMEHOME \
     --keylength ec-384 --keypath /tmp/server.key --fullchainpath /tmp/full.cer \
-    --log /var/log/acme.log \
+    --log $ACMEHOME/acme.log \
     --reloadcmd /config/scripts/reload.acme.sh \
     $INSECURE_FLAG $VERBOSE_FLAG $@
 
