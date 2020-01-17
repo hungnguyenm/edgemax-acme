@@ -39,14 +39,19 @@ Remember to replace `[yourdnsapi]` with your DNS provider script file name from 
 - `-i` (optional) flag to enable insecure mode.
 - `-v` (optional) flag to enable acme verbose.
 
-The command below works for GoDaddy DNS:
+As ACME now prevents `acme.sh` to be called with sudo, we'd need to switch to root user before running the script the first time:
 ```
-sudo /config/scripts/renew.acme.sh -d subdomain.example.com -n dns_gd -t "GD_Key" -t "GD_Secret" -k "sdfsdfsdfljlbjkljlkjsdfoiwje" -k "asdfsdafdsfdsfdsfdsfdsafd"
+sudo su
+```
+
+With the root shell, the command below works for GoDaddy DNS:
+```
+/config/scripts/renew.acme.sh -d subdomain.example.com -n dns_gd -t "GD_Key" -t "GD_Secret" -k "sdfsdfsdfljlbjkljlkjsdfoiwje" -k "asdfsdafdsfdsfdsfdsfdsafd"
 ```
 
 If you need extra arguments to acme.sh (perhaps for a [challenge alias](https://github.com/Neilpang/acme.sh/wiki/DNS-alias-mode)) specify them at the end after a ```--```:
 ```
-sudo /config/scripts/renew.acme.sh -d subdomain.example.com -n dns_gd -t "GD_Key" -t "GD_Secret" -k "sdfsdfsdfljlbjkljlkjsdfoiwje" -k "asdfsdafdsfdsfdsfdsfdsafd" -- --challenge-alias challenge-domain.example.com
+/config/scripts/renew.acme.sh -d subdomain.example.com -n dns_gd -t "GD_Key" -t "GD_Secret" -k "sdfsdfsdfljlbjkljlkjsdfoiwje" -k "asdfsdafdsfdsfdsfdsfdsafd" -- --challenge-alias challenge-domain.example.com
 ```
 
 ## Configure router
@@ -94,6 +99,7 @@ set system task-scheduler task renew.acme executable arguments '-d subdomain.exa
 ## Changelog
 
 ```
+2020-01-17: Update the first-time command to fix sudo error from acme.sh
 2018-09-14: Add an option for providing arbitrary arguments to acme.sh
 2018-04-22: Change RSA certificate to ECDSA P-384; Set default log to /var/log/acme.log
 2017-12-21: Add -i and -v options in renew.acme.sh
