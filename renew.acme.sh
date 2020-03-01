@@ -8,16 +8,6 @@ usage() {
          "-t <tag> [-t <additional tag>] -k <key> [-k <additional key>]" 1>&2; exit 1;
 }
 
-kill_and_wait() {
-    local pid=$1
-    [ -z $pid ] && return
-
-    kill -s INT $pid 2> /dev/null
-    while kill -s SIGTERM $pid 2> /dev/null; do
-        sleep 1
-    done
-}
-
 log() {
     if [ -z "$2" ]
     then
@@ -64,11 +54,7 @@ done
 log "Stopping gui service."
 if [ -e "/var/run/lighttpd.pid" ]
 then
-    # Yes, although we just checked for the PID, turns
-    # out sometimes /var/run/lighttpd.pid is not populated
-    # using "pidof" is a more reliable way (on ERX v1.10.5 at least)
-    # to stop lighttpd
-    kill_and_wait $(pidof lighttpd)
+    killall lighttpd
 fi
 
 log "Executing acme.sh."
