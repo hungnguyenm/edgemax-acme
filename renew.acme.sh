@@ -8,6 +8,16 @@ usage() {
          "-t <tag> [-t <additional tag>] -k <key> [-k <additional key>]" 1>&2; exit 1;
 }
 
+kill_and_wait() {
+    local pid=$1
+    [ -z $pid ] && return
+
+    kill -s INT $pid 2> /dev/null
+    while kill -s SIGTERM $pid 2> /dev/null; do
+        sleep 1
+    done
+}
+
 log() {
     if [ -z "$2" ]
     then
@@ -52,9 +62,12 @@ for i in "${!TAGS[@]}"; do
 done
 
 log "Stopping gui service."
-if [ -e "/var/run/lighttpd.pid" ]
-then
-    killall lighttpd
+if [ -e "/var/run/lighttpd.pid" ]; then
+    if command -v killall >/dev/null 2>&1; then
+        killall lighttpd
+    else
+        kill_and_wait $(pidof lighttpd)
+    fi
 fi
 
 log "Executing acme.sh."
