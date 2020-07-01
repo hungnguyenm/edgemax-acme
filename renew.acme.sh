@@ -13,6 +13,7 @@ kill_and_wait() {
     [ -z $pid ] && return
 
     kill -s INT $pid 2> /dev/null
+    ps -e | grep lighttpd | awk '{print $1;}' | sudo xargs kill
     while kill -s SIGTERM $pid 2> /dev/null; do
         sleep 1
     done
@@ -65,6 +66,7 @@ log "Stopping gui service."
 if [ -e "/var/run/lighttpd.pid" ]; then
     if command -v killall >/dev/null 2>&1; then
         killall lighttpd
+        ps -e | grep lighttpd | awk '{print $1;}' | sudo xargs kill
     else
         kill_and_wait $(pidof lighttpd)
     fi
