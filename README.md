@@ -54,6 +54,11 @@ If you need extra arguments to acme.sh (perhaps for a [challenge alias](https://
 /config/scripts/renew.acme.sh -d subdomain.example.com -n dns_gd -t "GD_Key" -t "GD_Secret" -k "sdfsdfsdfljlbjkljlkjsdfoiwje" -k "asdfsdafdsfdsfdsfdsfdsafd" -- --challenge-alias challenge-domain.example.com
 ```
 
+If the update *fails* and you need to restart the web server:
+```
+sudo /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
+```
+
 ## Configure router
 
 1. Set domain pointing to router internal IP address
