@@ -59,6 +59,13 @@ If the update *fails* and you need to restart the web server:
 sudo /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
 ```
 
+<b>If your EdgeOS has outdated Let's Encrypt certificates, you'll need to also update these manually:</b>
+```
+sudo sed -i 's|^mozilla\/DST_Root_CA_X3\.crt|!mozilla/DST_Root_CA_X3.crt|' /etc/ca-certificates.conf
+sudo curl -sk https://letsencrypt.org/certs/isrgrootx1.pem -o /usr/local/share/ca-certificates/ISRG_Root_X1.crt
+sudo update-ca-certificates --fresh
+```
+
 ## Configure router
 
 1. Set domain pointing to router internal IP address
@@ -80,6 +87,7 @@ sudo /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
 
 	```
 	set service gui cert-file /config/ssl/server.pem
+    set service gui ca-file /config/ssl/ca.pem
 	```
 
 4. Commit and save your configuration

@@ -73,10 +73,10 @@ if [ -e "/var/run/lighttpd.pid" ]; then
 fi
 
 log "Executing acme.sh."
-$ACMEHOME/acme.sh --issue $DNSARG $DOMAINARG --home $ACMEHOME \
-    --keylength ec-384 --keypath /tmp/server.key --fullchainpath /tmp/full.cer \
-    --log /var/log/acme.log \
-    --reloadcmd /config/scripts/reload.acme.sh \
+$ACMEHOME/acme.sh --issue $DNSARG $DOMAINARG --home $ACMEHOME --server letsencrypt \
+    --keylength ec-384 --keypath /tmp/key.pem --certpath /tmp/cert.pem \
+    --fullchainpath /tmp/fullchain.pem --log /var/log/acme.log \
+    --reloadcmd /config/scripts/reload.acme.sh --force \
     $INSECURE_FLAG $VERBOSE_FLAG $@
 
 log "Starting gui service."
