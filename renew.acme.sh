@@ -76,7 +76,7 @@ log "Executing acme.sh."
 $ACMEHOME/acme.sh --issue $DNSARG $DOMAINARG --home $ACMEHOME --server letsencrypt \
     --keylength ec-384 --keypath /tmp/key.pem --certpath /tmp/cert.pem \
     --fullchainpath /tmp/fullchain.pem --log /var/log/acme.log \
-    --reloadcmd /config/scripts/reload.acme.sh --force \
+    --reloadcmd /config/scripts/reload.acme.sh \
     $INSECURE_FLAG $VERBOSE_FLAG $@
 
 log "Starting gui service."
